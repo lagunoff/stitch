@@ -9,7 +9,8 @@ module Stitch
   -- * Combinators
   , (?)
   , (.=)
-  , comment ) where
+  , comment
+  , media ) where
 
 import Control.Monad.Stitch
 import Stitch.Render

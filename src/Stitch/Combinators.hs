@@ -4,7 +4,8 @@ module Stitch.Combinators
   , (?)
   , (-:)
   , comment
-  , cssImport ) where
+  , cssImport
+  , media ) where
 
 import Control.Monad.Trans.Stitch
 import Stitch.Types
@@ -73,3 +74,8 @@ comment c = StitchT $ tell $ Block [] [Comment c] mempty
 -- | Add an @\@import@ statement to the top-level of the CSS output.
 cssImport :: Monad m => Text -> StitchT m ()
 cssImport u = StitchT $ tell $ Block [Import u] [] mempty
+
+-- | Add media query to underlying declarations
+media :: Text -> Selector
+media query = Selector [query] []
+

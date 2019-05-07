@@ -52,7 +52,10 @@ basicInner selectors (InnerBlock ps cs) =
     then
       Text.intercalate "\n" $ collectChildren basicInner selectors cs
     else
-      Text.intercalate "\n" $ mconcat
+      let withMedia inner = if length (unMedia selectors) == 0
+            then inner
+            else "@media " <> Text.intercalate " and " (unMedia selectors) <> " {\n" <> inner <> "\n}"
+      in withMedia $ Text.intercalate "\n" $ mconcat
         [ Text.intercalate ", " $ filter (not . Text.isInfixOf "&") $ unSelector selectors
         , " {\n  "
         , Text.intercalate ";\n  " $ map basicProp ps
